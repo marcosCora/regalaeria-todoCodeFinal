@@ -1,15 +1,14 @@
 package com.tpTodoCode.regaleria.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+import java.util.List;
+
+@Entity(name = "clientes")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,4 +19,6 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String dni;
+    @OneToMany(mappedBy = "cliente")
+    private List<Venta> compras;
 }
