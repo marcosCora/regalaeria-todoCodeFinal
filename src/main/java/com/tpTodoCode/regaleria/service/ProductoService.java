@@ -39,6 +39,11 @@ public class ProductoService implements IProductoService{
 
     @Override
     public Producto deleteProducto(Long id) throws Exception {
-        return null;
+        Producto pDelete = repository.findById(id).get();
+        if(pDelete == null){
+            throw new Exception("El producto que desea eliminar no se enceuntra cargado");
+        }
+        repository.deleteById(id);
+        return pDelete;
     }
 }
