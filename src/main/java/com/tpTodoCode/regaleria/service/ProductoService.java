@@ -46,4 +46,13 @@ public class ProductoService implements IProductoService{
         repository.deleteById(id);
         return pDelete;
     }
+
+    @Override
+    public Producto searchProductoId(Long id) throws Exception{
+        return repository.findById(id)
+                .orElseThrow(() -> new Exception("El producto no fue encontrado"));
+    }
+
+
+
 }

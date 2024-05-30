@@ -10,5 +10,6 @@ public interface IProductoService {
     public String saveProducto(Producto p);
     public String editProducto(Long idP, Producto p) throws Exception;
     public Producto deleteProducto(Long id) throws Exception;
+    public Producto searchProductoId(Long id) throws Exception;
 
 }
