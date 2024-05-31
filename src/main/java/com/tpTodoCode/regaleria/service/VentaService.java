@@ -4,6 +4,7 @@ import com.tpTodoCode.regaleria.entity.Cliente;
 import com.tpTodoCode.regaleria.entity.Venta;
 import com.tpTodoCode.regaleria.repository.IClienteRepository;
 import com.tpTodoCode.regaleria.repository.IVentaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 public class VentaService implements IVentaService{
 
+    @Autowired
     private IVentaRepository repository;
 
     @Override

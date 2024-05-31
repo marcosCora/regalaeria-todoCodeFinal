@@ -18,7 +18,7 @@ public class Venta {
     private Long idVenta;
     private LocalDate fecha;
     private double total;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Producto> productos;
     @ManyToOne(cascade = CascadeType.MERGE)
             @JoinColumn(name = "FK_IDCLIENTE",
