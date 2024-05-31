@@ -29,6 +29,13 @@ public class ProductoService implements IProductoService{
     }
 
     @Override
+    public String saveProductos(List<Producto> productos){
+        repository.saveAll(productos);
+        return "Productos almacenados correctamente";
+    }
+
+
+    @Override
     public String editProducto(Long idP, Producto p) throws Exception {
         if(!repository.existsById(idP)){
             throw new Exception("El producto que desea eliminar no se enceunra en la BDD");

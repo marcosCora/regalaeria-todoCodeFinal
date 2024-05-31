@@ -15,7 +15,7 @@ public class ClienteService implements IClienteService {
     private IClienteRepository repository;
 
     @Override
-    public List<Cliente> allProductos() throws Exception {
+    public List<Cliente> allCliente() throws Exception {
         List<Cliente> clientes = repository.findAll();
         if(clientes.isEmpty()){
             throw new Exception("No se encontraron clientes");
@@ -24,22 +24,28 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public String saveProducto(Cliente c) {
+    public String saveCliente(Cliente c) {
         repository.save(c);
         return "Cliente almacenado correctamente";
     }
 
     @Override
-    public String editProducto(Long idC, Cliente c) throws Exception {
+    public String saveClientes(List<Cliente> c) {
+        repository.saveAll(c);
+        return "Clientes almacenado correctamente";
+    }
+
+    @Override
+    public String editCliente(Long idC, Cliente c) throws Exception {
         if(!repository.existsById(idC)){
             throw new Exception("El cliente que desea eliminar no se enceunra en la BDD");
         }
-        this.saveProducto(c);
+        this.saveCliente(c);
         return "Producto editado correctamente";
     }
 
     @Override
-    public Cliente deleteProducto(Long id) throws Exception {
+    public Cliente deleteCliente(Long id) throws Exception {
         Cliente cDelete = repository.findById(id).orElse(null);
         if(cDelete == null){
             throw new Exception("El cliente que desea eliminar no se enceuntra cargado");
@@ -49,7 +55,7 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public Cliente searchProductoId(Long id) throws Exception {
+    public Cliente searchClienteId(Long id) throws Exception {
         return repository.findById(id)
                 .orElseThrow(() -> new Exception("El cliente no fue encontrado"));
     }

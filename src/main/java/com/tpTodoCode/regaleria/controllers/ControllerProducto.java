@@ -15,31 +15,37 @@ public class ControllerProducto {
     IProductoService service;
 
     @GetMapping("/productos")
-    public ResponseEntity<?> allProductos(){
+    public ResponseEntity<?> allProductos() {
         ResponseEntity response = null;
-        try{
+        try {
             response = ResponseEntity.ok(service.allProductos());
-        }catch (Exception e){
+        } catch (Exception e) {
             response = ResponseEntity.badRequest().body("Error " + e.getMessage());
         }
         return response;
     }
 
     @GetMapping("/producto/{id}")
-    public ResponseEntity<?> searchProductoId(@PathVariable Long id){
+    public ResponseEntity<?> searchProductoId(@PathVariable Long id) {
         ResponseEntity response = null;
-        try{
+        try {
             response = ResponseEntity.ok(service.searchProductoId(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             response = ResponseEntity.badRequest().body("Error " + e.getMessage());
         }
         return response;
     }
 
     @PostMapping("/producto/save")
-    public ResponseEntity<?> saveProducto(@RequestBody Producto p){
+    public ResponseEntity<?> saveProducto(@RequestBody Producto p) {
         return ResponseEntity.ok(service.saveProducto(p));
     }
+
+    @PostMapping("/productos/save")
+    public ResponseEntity<?> saveProductos(@RequestBody List<Producto> productos) {
+        return ResponseEntity.ok(service.saveProductos(productos));
+    }
+
 
     @DeleteMapping("/producto/delete/{id}")
     public ResponseEntity<?> deleteProducto(@PathVariable Long id){

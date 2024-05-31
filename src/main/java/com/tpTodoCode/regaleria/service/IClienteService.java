@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IClienteService {
 
-    public List<Cliente> allProductos() throws Exception;
-    public String saveProducto(Cliente c);
-    public String editProducto(Long idC, Cliente c) throws Exception;
-    public Cliente deleteProducto(Long id) throws Exception;
-    public Cliente searchProductoId(Long id) throws Exception;
-
+    public List<Cliente> allCliente() throws Exception;
+    public String saveCliente(Cliente c);
+    public String editCliente(Long idC, Cliente c) throws Exception;
+    public Cliente deleteCliente(Long id) throws Exception;
+    public Cliente searchClienteId(Long id) throws Exception;
+    public String saveClientes(List<Cliente> c);
 
 }
