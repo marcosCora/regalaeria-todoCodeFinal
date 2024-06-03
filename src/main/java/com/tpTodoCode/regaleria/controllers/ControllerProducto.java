@@ -62,7 +62,8 @@ public class ControllerProducto {
     public ResponseEntity<?> editProducto(@PathVariable Long id, @RequestBody Producto p){
         ResponseEntity response = null;
         try{
-            response = ResponseEntity.ok(service.editProducto(id, p));
+            service.editProducto(id, p);
+            response = ResponseEntity.ok("Producto guardado correctamente");
         }catch (Exception e){
             response = ResponseEntity.badRequest().body("Error " + e.getMessage());
         }

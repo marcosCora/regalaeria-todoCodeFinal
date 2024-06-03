@@ -37,7 +37,13 @@ public class ControllerVenta {
 
     @PostMapping("/venta/save")
     public ResponseEntity<?> saveProducto(@RequestBody Venta v){
-        return ResponseEntity.ok(service.saveVentas(v));
+        ResponseEntity response = null;
+        try{
+            response = ResponseEntity.ok(service.saveVentas(v));
+        }catch (Exception e){
+            response = ResponseEntity.badRequest().body("Error " + e.getMessage());
+        }
+        return response;
     }
 
     @DeleteMapping("/venta/delete/{id}")

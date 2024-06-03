@@ -20,4 +20,13 @@ public class Producto {
     private String marca;
     private double costo;
     private double cantDisponible;
+
+    public void sumaStock(double cantidad){
+        this.cantDisponible += cantidad;
+    }
+
+    public void restaStock(){
+        this.cantDisponible --;
+    }
+
 }

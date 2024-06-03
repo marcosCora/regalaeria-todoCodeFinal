@@ -1,5 +1,6 @@
 package com.tpTodoCode.regaleria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
@@ -20,5 +21,6 @@ public class Cliente {
     private String apellido;
     private String dni;
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnoreProperties(value = "cliente")
     private List<Venta> compras;
 }
