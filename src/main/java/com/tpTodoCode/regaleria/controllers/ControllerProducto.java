@@ -36,6 +36,17 @@ public class ControllerProducto {
         return response;
     }
 
+    @GetMapping("/productos/falta_stock")
+    public ResponseEntity<?> productosFaltantes(){
+        ResponseEntity response = null;
+        try {
+            response = ResponseEntity.ok(service.productosFaltantes());
+        }catch (Exception e){
+            response = ResponseEntity.badRequest().body("Error " + e.getMessage());
+        }
+        return response;
+    }
+
     @PostMapping("/producto/save")
     public ResponseEntity<?> saveProducto(@RequestBody Producto p) {
         return ResponseEntity.ok(service.saveProducto(p));

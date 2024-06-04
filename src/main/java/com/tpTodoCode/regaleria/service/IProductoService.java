@@ -15,4 +15,5 @@ public interface IProductoService {
     public Producto searchProductoId(Long id) throws Exception;
     public List<Producto> setProductos(List<Producto> productosId) throws Exception;
     public void editStockProduct(@NotNull List<Producto> productos) throws Exception;
+    public List<Producto> productosFaltantes() throws Exception;
 }

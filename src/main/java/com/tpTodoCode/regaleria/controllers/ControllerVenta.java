@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 public class ControllerVenta {
 
@@ -14,7 +16,7 @@ public class ControllerVenta {
     private IVentaService service;
 
     @GetMapping("/ventas")
-    public ResponseEntity<?> allProductos(){
+    public ResponseEntity<?> allVentas(){
         ResponseEntity response = null;
         try{
             response = ResponseEntity.ok(service.allVentas());
@@ -25,7 +27,7 @@ public class ControllerVenta {
     }
 
     @GetMapping("/venta/{id}")
-    public ResponseEntity<?> searchProductoId(@PathVariable Long id){
+    public ResponseEntity<?> searchVentaId(@PathVariable Long id){
         ResponseEntity response = null;
         try{
             response = ResponseEntity.ok(service.searchVentasId(id));
@@ -35,8 +37,41 @@ public class ControllerVenta {
         return response;
     }
 
+    @GetMapping("/venta/productos/{id}")
+    public ResponseEntity<?> productoDeVenta(@PathVariable Long id){
+        ResponseEntity response = null;
+        try{
+            response = ResponseEntity.ok(service.productoDeVenta(id));
+        }catch (Exception e){
+            response = ResponseEntity.badRequest().body("Error " + e.getMessage());
+        }
+        return response;
+    }
+
+    @GetMapping("/venta/total/{fecha}")
+    public ResponseEntity<?> totalVentasXFecha(@PathVariable LocalDate fecha){
+        ResponseEntity response = null;
+        try{
+            response = ResponseEntity.ok(service.totalVentaXFecha(fecha));
+        }catch (Exception e){
+            response = ResponseEntity.badRequest().body("Error " + e.getMessage());
+        }
+        return response;
+    }
+
+    @GetMapping("/venta/mayor_venta")
+    public ResponseEntity<?> mayorVenta(){
+        ResponseEntity response = null;
+        try{
+            response = ResponseEntity.ok(service.mayorVenta());
+        }catch (Exception e){
+            response = ResponseEntity.badRequest().body("Error " + e.getMessage());
+        }
+        return response;
+    }
+
     @PostMapping("/venta/save")
-    public ResponseEntity<?> saveProducto(@RequestBody Venta v){
+    public ResponseEntity<?> saveVenta(@RequestBody Venta v){
         ResponseEntity response = null;
         try{
             response = ResponseEntity.ok(service.saveVentas(v));
@@ -47,7 +82,7 @@ public class ControllerVenta {
     }
 
     @DeleteMapping("/venta/delete/{id}")
-    public ResponseEntity<?> deleteProducto(@PathVariable Long id){
+    public ResponseEntity<?> deleteVenta(@PathVariable Long id){
         ResponseEntity response = null;
         try{
             response = ResponseEntity.ok(service.deleteVentas(id));
@@ -58,7 +93,7 @@ public class ControllerVenta {
     }
 
     @PutMapping("/venta/edit/{id}")
-    public ResponseEntity<?> editProducto(@PathVariable Long id, @RequestBody Venta v){
+    public ResponseEntity<?> editVenta(@PathVariable Long id, @RequestBody Venta v){
         ResponseEntity response = null;
         try{
             response = ResponseEntity.ok(service.editVentas(id, v));

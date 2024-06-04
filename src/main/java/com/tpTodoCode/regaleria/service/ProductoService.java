@@ -87,6 +87,18 @@ public class ProductoService implements IProductoService{
         }
     }
 
+    @Override
+    public List<Producto> productosFaltantes() throws Exception{
+        List<Producto> productos = this.allProductos();
+        List<Producto> productosFaltantes = new ArrayList<>();
+        for (Producto p : productos){
+            if(p.getCantDisponible() < 5){
+                productosFaltantes.add(p);
+            }
+        }
+        return productosFaltantes;
+    }
+
 
 
 }

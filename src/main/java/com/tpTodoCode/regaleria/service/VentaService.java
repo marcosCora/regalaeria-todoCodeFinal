@@ -1,5 +1,8 @@
 package com.tpTodoCode.regaleria.service;
 
+import com.tpTodoCode.regaleria.dto.TotalVentasDiaDTO;
+import com.tpTodoCode.regaleria.dto.VentaClienteDTO;
+import com.tpTodoCode.regaleria.dto.VentaXCursoDTO;
 import com.tpTodoCode.regaleria.entity.Cliente;
 import com.tpTodoCode.regaleria.entity.Producto;
 import com.tpTodoCode.regaleria.entity.Venta;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VentaService implements IVentaService {
@@ -77,6 +81,50 @@ public class VentaService implements IVentaService {
         return suma;
     }
 
+    @Override
+    public VentaXCursoDTO productoDeVenta(Long id) throws Exception{
+        Venta venta = this.searchVentasId(id);
+        return new VentaXCursoDTO(venta.getIdVenta(), venta.getFecha(), venta.getProductos());
+    }
+
+    @Override
+    public TotalVentasDiaDTO totalVentaXFecha(LocalDate fecha) throws Exception{
+        List<Venta> ventas = this.allVentas();
+        List<Venta> vFiltradas = ventas.stream()
+                .filter(venta -> venta.getFecha().equals(fecha))
+                .collect(Collectors.toList());
+        if (vFiltradas.isEmpty()){
+            throw new Exception("No hay ventas realizadas en esa fecha");
+        }
+        double total = gananciaTotal(vFiltradas);
+        int totalProducotos = vFiltradas.size();
+        return new TotalVentasDiaDTO(fecha, total, totalProducotos);
+    }
+
+    @Override
+    public double gananciaTotal(List<Venta> ventas){
+        double total = 0;
+        for(Venta v : ventas){
+            total += v.getTotal();
+        }
+        return total;
+    }
+
+    @Override
+    public VentaClienteDTO mayorVenta() throws Exception{
+        List<Venta> ventas = this.allVentas();
+        Venta ventaMayor = ventas.get(0);
+
+        for (Venta v : ventas){
+            if(v.getTotal() > ventaMayor.getTotal()){
+                ventaMayor = v;
+            }
+        }
+
+        return new VentaClienteDTO(ventaMayor.getIdVenta(), ventaMayor.getTotal(),
+                                   ventaMayor.getProductos().size(),
+                                  (ventaMayor.getCliente().getNombre() + " " + ventaMayor.getCliente().getApellido()));
+    }
 
 
 }
